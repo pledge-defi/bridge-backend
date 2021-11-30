@@ -1,0 +1,20 @@
+{
+  "name": "findora-truffle",
+  "version": "1.0.0",
+  "description": "",
+  "main": "truffle-config.js",
+  "license": "MIT",
+  "scripts": {
+    "compile": "truffle compile --compile-all"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "3.2.0"
+  },
+  "devDependencies": {
+    "@truffle/artifactor": "^4.0.84",
+    "@truffle/contract": "^4.2.25",
+    "@truffle/hdwallet-provider": "^1.1.0",
+    "truffle": "5.1.49"
+  }
+}
+
