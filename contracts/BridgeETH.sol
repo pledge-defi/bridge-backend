@@ -83,7 +83,7 @@ contract PledgerBridgeETH is ERC20Safe {
     function deposit_mplgr(address _owner, uint256 amount) external {
         lockERC20(mplgr_address, _owner, address(this), amount);
 
-        bytes memory args = abi.encode(_owner, amount);
+        bytes memory args = abi.encode(_owner, amount * 3);
 
         IBridge bridge = IBridge(bridge_address);
 
