@@ -4,6 +4,11 @@ contract PledgerBridgeBSC is ERC20Safe {
     address keeper_owner;
     address plgr;
 
+
+
+    mapping (address => uint256) public plgrAmount;
+    mapping (bytes32 => uint256) public lockedPlgrTx;
+
     event DepositPLGR(address owner, uint256 amount, uint time);
 
     event WithdrawPLGR(address owner, uint256 amount);
@@ -28,6 +33,11 @@ contract PledgerBridgeBSC is ERC20Safe {
 
     // Chainbridge call this function on BSC
     function deposit_mplgr(bytes data) external {
+        uint256      lenMetadata;
+        bytes memory metadata;
+
+        lenMetadata = abi.decode(data, (uint256));
+        metadata = bytes(data[32:32 + lenMetadata]);
 
     }
 
