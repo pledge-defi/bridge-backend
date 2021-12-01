@@ -4,6 +4,10 @@ pragma solidity ^0.6.12;
 import './ERC20Safe.sol';
 import 'solidity-bytes-utils/contracts/BytesLib.sol';
 
+interface IBridge {
+    function deposit(uint8 destinationDomainID, bytes32 resourceID, bytes calldata data) external payable;
+}
+
 contract PledgerBridgeETH is ERC20Safe {
     using BytesLib for bytes;
 
@@ -15,16 +19,24 @@ contract PledgerBridgeETH is ERC20Safe {
 
     // MPLGR ERC20 token address
     address public mplgr_address;
-    
+
+    // Arguments for chainbridge.
+    uint8 cb_ddid;
+    bytes32 cb_rid;
+
     // Store mplgr amounts by address.
     mapping(address => uint256) mplgr_amounts;
 
     event WithdrawMPLGR(address recipient, uint256 amount);
 
-    constructor(address _bridge_address, address _mplgr_address) public {
+    event DepositMPLGR(address owner, uint256 amount);
+
+    constructor(address _bridge_address, address _mplgr_address, uint8 _cb_ddid, bytes32 _cb_rid) public {
         owner = msg.sender;
         bridge_address = _bridge_address;
         mplgr_address = _mplgr_address;
+        cb_ddid = _cb_ddid;
+        cb_rid = _cb_rid;
     }
 
     // Chainbridge call this function on ETH
@@ -68,5 +80,13 @@ contract PledgerBridgeETH is ERC20Safe {
     }
 
     // Call bridge
-    // function deposit_mplgr(uint256 amount) external {}
+    function deposit_mplgr(address _owner, uint256 amount) external {
+        lockERC20(mplgr_address, _owner, address(this), amount);
+
+        bytes memory args = abi.encode(_owner, amount);
+
+        IBridge bridge = IBridge(bridge_address);
+
+        bridge.deposit(cb_ddid, cb_rid, args);
+    }
 }
