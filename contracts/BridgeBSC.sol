@@ -10,6 +10,8 @@ contract PledgerBridgeBSC is ERC20Safe {
 
     address public bridge_address;
 
+    address public handler_address;
+
     struct LockedPLGRTx {
         address owner;
         uint256 amount;
@@ -25,10 +27,19 @@ contract PledgerBridgeBSC is ERC20Safe {
 
     event WithdrawPLGR(address owner, uint256 amount);
 
-    constructor(address _plgr_address, address _bridge_address) public {
+    constructor(address _plgr_address, address _bridge_address, address _handler_address) public {
         owner = msg.sender;
         plgr_address = _plgr_address;
         bridge_address = _bridge_address;
+        handler_address = _handler_address;
+    }
+
+
+    function admin_update_bridge(address _bridge_address, address _handler_address) public {
+        require(msg.sender == owner, "Admin only called by owner");
+
+        bridge_address = _bridge_address;
+        handler_address = _handler_address;
     }
 
     // User call this function on BSC to deposit PLGR.

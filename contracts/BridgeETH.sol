@@ -11,13 +11,12 @@ interface IBridge {
 contract PledgerBridgeETH is ERC20Safe {
     using BytesLib for bytes;
 
-    // chainbridge ERC20Handler address.
     address public bridge_address;
 
-    // admin address;
+    address public handler_address;
+
     address public owner;
 
-    // MPLGR ERC20 token address
     address public mplgr_address;
 
     // Arguments for chainbridge.
@@ -33,10 +32,20 @@ contract PledgerBridgeETH is ERC20Safe {
 
     event DepositMPLGRBridge(address owner, uint256 amount);
 
-    constructor(address _bridge_address, address _mplgr_address, uint8 _cb_ddid, bytes32 _cb_rid) public {
+    constructor(address _bridge_address, address _handler_address, address _mplgr_address, uint8 _cb_ddid, bytes32 _cb_rid) public {
         owner = msg.sender;
         bridge_address = _bridge_address;
+        handler_address = _handler_address;
         mplgr_address = _mplgr_address;
+        cb_ddid = _cb_ddid;
+        cb_rid = _cb_rid;
+    }
+
+    function admin_update_bridge(address _bridge_address, address _handler_address, uint8 _cb_ddid, bytes32 _cb_rid) public {
+        require(msg.sender == owner, "Admin only called by owner");
+
+        bridge_address = _bridge_address;
+        handler_address = _handler_address;
         cb_ddid = _cb_ddid;
         cb_rid = _cb_rid;
     }
