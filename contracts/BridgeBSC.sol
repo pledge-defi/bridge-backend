@@ -73,8 +73,8 @@ contract PledgerBridgeBSC is ERC20Safe {
     }
 
     // Chainbridge call this function on BSC
-    function deposit_mplgr(bytes calldata data) external {
-        require(msg.sender == bridge_address, "This function only by chainbridge");
+    function deposit_mplgr_bridge(bytes calldata data) external {
+        require(msg.sender == handler_address, "This function only by chainbridge");
 
         (address addr, uint256 amount) = abi.decode(data, (address, uint256));
 

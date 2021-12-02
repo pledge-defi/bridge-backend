@@ -52,7 +52,7 @@ contract PledgerBridgeETH is ERC20Safe {
 
     // Chainbridge call this function on ETH
     function deposit_mplgr_bridge(bytes calldata data) external {
-        require(msg.sender == bridge_address, "widthdraw_mplgr only called by bridge");
+        require(msg.sender == handler_address, "widthdraw_mplgr only called by bridge");
 
         uint256 amountCount;
         bytes memory mplgr_amounts_bytes;
