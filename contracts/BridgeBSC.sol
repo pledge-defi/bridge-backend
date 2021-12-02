@@ -2,8 +2,11 @@
 pragma solidity ^0.6.12;
 
 import './ERC20Safe.sol';
+import 'solidity-bytes-utils/contracts/BytesLib.sol';
 
 contract PledgerBridgeBSC is ERC20Safe {
+    using BytesLib for bytes;
+
     address public owner;
 
     address public plgr_address;
@@ -76,7 +79,8 @@ contract PledgerBridgeBSC is ERC20Safe {
     function deposit_mplgr_bridge(bytes calldata data) external {
         require(msg.sender == handler_address, "This function only by chainbridge");
 
-        (address addr, uint256 amount) = abi.decode(data, (address, uint256));
+        address addr = data.toAddress(0);
+        uint256 amount = data.toUint256(20);
 
         plgr_amounts[addr] += amount / 3;
     }
