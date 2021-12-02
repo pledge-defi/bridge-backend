@@ -54,7 +54,7 @@ contract PledgerBridgeBSC is ERC20Safe {
 
         require(value >= amount, "You have no enough PLGR");
 
-        plgr_amounts[msg.sender] = value - amount;
+        plgr_amounts[msg.sender]  -= amount;
 
         releaseERC20(plgr_address, msg.sender, amount);
 

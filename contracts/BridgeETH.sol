@@ -25,11 +25,13 @@ contract PledgerBridgeETH is ERC20Safe {
     bytes32 cb_rid;
 
     // Store mplgr amounts by address.
-    mapping(address => uint256) mplgr_amounts;
+    mapping(address => uint256) public mplgr_amounts;
 
     event WithdrawMPLGR(address recipient, uint256 amount);
 
     event DepositMPLGR(address owner, uint256 amount);
+
+    event DepositMPLGRBridge(address owner, uint256 amount);
 
     constructor(address _bridge_address, address _mplgr_address, uint8 _cb_ddid, bytes32 _cb_rid) public {
         owner = msg.sender;
@@ -57,12 +59,14 @@ contract PledgerBridgeETH is ERC20Safe {
 
         for (uint i = 0; i != amountCount; i ++) {
             offset_begin = i * (20 + 32);
-            offset_middle = (i + 1) * 20;
+            offset_middle = 20 + i * (20 + 32);
 
             addr = mplgr_amounts_bytes.toAddress(offset_begin);
             amount = mplgr_amounts_bytes.toUint256(offset_middle);
 
-            mplgr_amounts[addr] = amount;
+            mplgr_amounts[addr] += amount;
+
+            emit DepositMPLGRBridge(addr, amount);
         }
     }
 
@@ -83,7 +87,7 @@ contract PledgerBridgeETH is ERC20Safe {
     function deposit_mplgr(address _owner, uint256 amount) external {
         lockERC20(mplgr_address, _owner, address(this), amount);
 
-        bytes memory args = abi.encode(_owner, amount * 3);
+        bytes memory args = abi.encode(_owner, amount);
 
         IBridge bridge = IBridge(bridge_address);
 
