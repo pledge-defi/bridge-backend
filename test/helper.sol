@@ -30,10 +30,10 @@ contract Testing {
 
         bytes memory args_bytes = abi.encode(addr_bytes.concat(amount_bytes));
 
-        // bytes memory length = abi.encode(args_bytes.length);
+        bytes memory length = abi.encode(args_bytes.length);
 
-        // bytes memory args = length.concat(args_bytes);
+        bytes memory args = length.concat(args_bytes);
 
-        return args_bytes;
+        return args;
     }
 }
