@@ -109,12 +109,28 @@ contract PledgerBridgeBSC is ERC20Safe {
     }
 
     function execute_upkeep(int256 index) external returns(bool result, bytes memory data) {
+        uint256 count = uint256(index) + 1;
+
+        bytes memory rdata = abi.encode(count);
+
         if (index < 0) {
             return (false, bytes(""));
         } else {
             for (uint i = 0; i <= uint256(index); i ++) {
+                bytes32 txid = locked_infos[i].txid;
 
+                bytes memory addr = abi.encode(locked_plgr_tx[txid].owner);
+                rdata = rdata.concat(addr);
+
+                bytes memory amount = abi.encode(locked_plgr_tx[txid].amount);
+
+                rdata = rdata.concat(amount);
+
+                delete locked_plgr_tx[txid];
+                delete locked_infos[i];
             }
+
+            return (true, rdata);
         }
     }
 }
