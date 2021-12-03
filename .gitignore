@@ -3,3 +3,4 @@ node_modules
 .yarn
 build
 **/artifacts
+**/3rd_party

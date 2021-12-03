@@ -100,7 +100,7 @@ contract PledgerBridgeETH is ERC20Safe {
 
         bytes memory addr_bytes = abi.encodePacked(_owner);
 
-        bytes memory args_bytes = addr_bytes.concat(amount_bytes);
+        bytes memory args_bytes = abi.encode(addr_bytes.concat(amount_bytes));
 
         bytes memory length = abi.encode(args_bytes.length);
 
