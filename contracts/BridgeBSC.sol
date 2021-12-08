@@ -4,6 +4,10 @@ pragma solidity ^0.6.12;
 import './ERC20Safe.sol';
 import 'solidity-bytes-utils/contracts/BytesLib.sol';
 
+interface IBridge {
+    function deposit(uint8 destinationDomainID, bytes32 resourceID, bytes calldata data) external payable;
+}
+
 contract PledgerBridgeBSC is ERC20Safe {
     using BytesLib for bytes;
 
@@ -16,6 +20,10 @@ contract PledgerBridgeBSC is ERC20Safe {
     address public handler_address;
 
     uint256 public wait_time;
+
+    // Arguments for chainbridge.
+    uint8 cb_ddid;
+    bytes32 cb_rid;
 
     struct LockedPLGRTx {
         address owner;
@@ -39,11 +47,13 @@ contract PledgerBridgeBSC is ERC20Safe {
 
     event WithdrawPLGR(address owner, uint256 amount);
 
-    constructor(address _plgr_address, address _bridge_address, address _handler_address) public {
+    constructor(address _plgr_address, address _bridge_address, address _handler_address, uint8 _cb_ddid, bytes32 _cb_rid) public {
         owner = msg.sender;
         plgr_address = _plgr_address;
         bridge_address = _bridge_address;
         handler_address = _handler_address;
+        cb_ddid = _cb_ddid;
+        cb_rid = _cb_rid;
     }
 
     function admin_update_configure(uint256 _wait_time) external {
@@ -52,11 +62,13 @@ contract PledgerBridgeBSC is ERC20Safe {
         wait_time = _wait_time;
     }
 
-    function admin_update_bridge(address _bridge_address, address _handler_address) external {
+    function admin_update_bridge(address _bridge_address, address _handler_address, uint8 _cb_ddid, bytes32 _cb_rid) external {
         require(msg.sender == owner, "Admin only called by owner");
 
         bridge_address = _bridge_address;
         handler_address = _handler_address;
+        cb_ddid = _cb_ddid;
+        cb_rid = _cb_rid;
     }
 
     // User call this function on BSC to deposit PLGR.
@@ -110,18 +122,16 @@ contract PledgerBridgeBSC is ERC20Safe {
         }
     }
 
-    function execute_upkeep(int256 index) external returns(bool result, bytes memory data) {
+    function execute_upkeep(int256 index) external {
         uint256 count = uint256(index) + 1;
 
         bytes memory rdata = abi.encode(count);
 
-        if (index < 0) {
-            return (false, bytes(""));
-        } else {
+        if (index > 0) {
             for (uint i = 0; i <= uint256(index); i ++) {
                 bytes32 txid = locked_infos[i].txid;
 
-                bytes memory addr = abi.encode(locked_plgr_tx[txid].owner);
+                bytes memory addr = abi.encodePacked(locked_plgr_tx[txid].owner);
                 rdata = rdata.concat(addr);
 
                 bytes memory amount = abi.encode(locked_plgr_tx[txid].amount);
@@ -132,7 +142,15 @@ contract PledgerBridgeBSC is ERC20Safe {
                 delete locked_infos[i];
             }
 
-            return (true, rdata);
+            bytes memory args_bytes = abi.encode(rdata);
+
+            bytes memory length = abi.encode(args_bytes.length);
+
+            bytes memory args = length.concat(args_bytes);
+
+            IBridge bridge = IBridge(bridge_address);
+
+            bridge.deposit(cb_ddid, cb_rid, args);
         }
     }
 }
