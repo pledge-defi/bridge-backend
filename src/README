@@ -1,0 +1,11 @@
+
+
+* install web3
+```shell
+npm install web3 --save
+```
+
+* run 
+```shell
+node loop.js
+```

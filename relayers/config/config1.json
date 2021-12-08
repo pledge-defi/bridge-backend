@@ -1,0 +1,36 @@
+{
+	"Chains": [
+        {
+			"name": "BSC",
+			"type": "ethereum",
+			"id": "0",
+			"endpoint": "https://data-seed-prebsc-1-s1.binance.org:8545/",
+			"from": "0x994354275A3512fc3C54543E1b400ea9dA1d3A0f",
+			"opts": {
+				"bridge": "0x0D52858bc128D056570e0E73C695eeC0bb3d7E04",
+				"erc20Handler": "0x86A09b4a8A4f4e86fA19A2699B7ce608BD0E750A",
+				"genericHandler": "0x4E053d46122721b3Ec194b7248Cb4270c45e52eA",
+				"gasLimit": "1000000",
+				"maxGasPrice": "10000000000",
+				"startBlock": "0",
+				"http": "true"
+			}
+		},
+		{
+            "name": "ETH",
+			"type": "ethereum",
+			"id": "1",
+			"endpoint": "https://ropsten.infura.io/v3/acb534b53d3a47b09d7886064f8e51b6",
+			"from": "0x994354275A3512fc3C54543E1b400ea9dA1d3A0f",
+			"opts": {
+				"bridge": "0x0C4DD68A014B58e0DDD590Bb014b0f7E71D2DaF4",
+				"erc20Handler": "0xE8FD5aB024a75D8A72D10462aF2A1b7980AE5C5C",
+				"genericHandler": "0x361F5886C42c631A241b1fE29f6BbfEf800B021f",
+				"gasLimit": "1000000",
+				"maxGasPrice": "100000000000",
+				"startBlock": "0",
+				"http": "true"
+			}
+		}
+	]
+}
