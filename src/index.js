@@ -59,11 +59,10 @@ async function execute_upkeep() {
       MyContract.methods.execute_upkeep(index).send({
           from: account.address,
           gas: 5000000,
-        }).then(function (result, data) {
-        console.log('result = ', result);
-        // call chain bridge bsc
-        BridgeBSCContract.methods.deposit(destinationChainID, resource_id, data).call().then(console.log);
-      });
+        }).then();
+        // console.log('result = ', result);
+        // // call chain bridge bsc
+        // BridgeBSCContract.methods.deposit(destinationChainID, resource_id, data).call().then(console.log);
     // }  // end if
   // } // end while
 }
