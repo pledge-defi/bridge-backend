@@ -75,6 +75,8 @@ contract PledgerBridgeBSC is ERC20Safe {
         locked_infos.push(lock_info);
 
         emit DepositPLGR(txid, _owner, amount, now);
+
+        return txid;
     }
 
     // User call this function on BSC to widthdraw PLGR.
