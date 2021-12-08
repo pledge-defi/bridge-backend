@@ -22,8 +22,8 @@ contract PledgerBridgeBSC is ERC20Safe {
     uint256 public wait_time;
 
     // Arguments for chainbridge.
-    uint8 cb_ddid;
-    bytes32 cb_rid;
+    uint8 public cb_ddid;
+    bytes32 public cb_rid;
 
     struct LockedPLGRTx {
         address owner;
@@ -115,6 +115,10 @@ contract PledgerBridgeBSC is ERC20Safe {
     }
 
     function check_upkeep() view public returns (int256) {
+        if (locked_infos.length == 0) {
+            return -1;
+        }
+
         for(uint i = 0; i != locked_infos.length; i ++) {
             if (locked_infos[i].time + wait_time > now) {
                 return int256(i) - 1;
@@ -127,7 +131,7 @@ contract PledgerBridgeBSC is ERC20Safe {
 
         bytes memory rdata = abi.encode(count);
 
-        if (index > 0) {
+        if (index >= 0) {
             for (uint i = 0; i <= uint256(index); i ++) {
                 bytes32 txid = locked_infos[i].txid;
 

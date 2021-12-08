@@ -20,8 +20,8 @@ contract PledgerBridgeETH is ERC20Safe {
     address public mplgr_address;
 
     // Arguments for chainbridge.
-    uint8 cb_ddid;
-    bytes32 cb_rid;
+    uint8 public cb_ddid;
+    bytes32 public cb_rid;
 
     // Store mplgr amounts by address.
     mapping(address => uint256) public mplgr_amounts;
@@ -31,6 +31,8 @@ contract PledgerBridgeETH is ERC20Safe {
     event DepositMPLGR(address owner, uint256 amount);
 
     event DepositMPLGRBridge(address owner, uint256 amount);
+
+    event DebugDepositMPLGR(bytes data);
 
     constructor(address _bridge_address, address _handler_address, address _mplgr_address, uint8 _cb_ddid, bytes32 _cb_rid) public {
         owner = msg.sender;
@@ -53,6 +55,8 @@ contract PledgerBridgeETH is ERC20Safe {
     // Chainbridge call this function on ETH
     function deposit_mplgr_bridge(bytes memory data) external {
         require(msg.sender == handler_address, "widthdraw_mplgr only called by bridge");
+
+        emit DebugDepositMPLGR(data);
 
         uint256 amountCount;
         bytes memory mplgr_amounts_bytes;
