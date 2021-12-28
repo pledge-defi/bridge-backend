@@ -20,7 +20,7 @@ source ./chainbridge-vars
 第2步、选择合约代码，At 出来的合约包括：
 1）plgr contract address : 
 0x1a91fa2c3c45fDA6d636D49e26Ce4889c07fd858
-
+ 
 2）PledgerBridgeBSC contract address : 
 0x277239573Ae3E996BB43743A37610D0a71E35B85
 
