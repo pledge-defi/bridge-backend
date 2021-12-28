@@ -1,6 +1,13 @@
 # pledger-bridge-contracts
 
+## How To Deploy
+```shell
+npm install
+truffle compile
+```
+
 ## Contracts
+BSC <> ETH(reposten)
 
 ```shell
 PLGR contract address : 0x1a91fa2c3c45fDA6d636D49e26Ce4889c07fd858
