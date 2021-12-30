@@ -25,7 +25,7 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint8\",\"name\":\"destinationDomainID\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"resourceID\",\"type\":\"bytes32\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"deposit\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/BridgeETH.sol\":\"IBridge\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/GSN/Context.sol\":{\"keccak256\":\"0xdb26cbf4d028490f49831a7865c2fe1b28db44b535ca8d343785a3b768aae183\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://840b14ce0315c47d49ba328f1f9fa7654ded1c9e1559e6c5e777a7b2dc28bf0a\",\"dweb:/ipfs/QmTLLabn4wcfGro9LEmUXUN2nwKqZSotXMvjDCLXEnLtZP\"]},\"@openzeppelin/contracts/access/AccessControl.sol\":{\"keccak256\":\"0x92f7900d382761c7faefeaced81c6b4f1aae909ed0551803bfe8f27101956360\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://407c0864143968542e5cf5aa7556916d2cf292b201e3dadb65662e9a3aa24187\",\"dweb:/ipfs/QmSnXzYAUaGLGr7uofRbgQraTJvatbjQLBPhyYiMd18oUJ\"]},\"@openzeppelin/contracts/math/SafeMath.sol\":{\"keccak256\":\"0x9a9cf02622cd7a64261b10534fc3260449da25c98c9e96d1b4ae8110a20e5806\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://2df142592d1dc267d9549049ee3317fa190d2f87eaa565f86ab05ec83f7ab8f5\",\"dweb:/ipfs/QmSkJtcfWo7c42KnL5hho6GFxK6HRNV91XABx1P7xDtfLV\"]},\"@openzeppelin/contracts/presets/ERC20PresetMinterPauser.sol\":{\"keccak256\":\"0xe30213b0851987b0455057cdfb65660c05805cbb05b12c0d61b0ff7a99cc36cc\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://1c61711ecc3ad53890dded63c27909a315ba3053c553be29acaa239bc6a7a0cf\",\"dweb:/ipfs/QmQjriBzSyAYQTm4NfWpnnoH8RhZrayyXm2zvpeHkxQnAk\"]},\"@openzeppelin/contracts/token/ERC20/ERC20.sol\":{\"keccak256\":\"0x91e0bd6a6762d2a1700dab0849de8422611355100576c4beef1e80d82a4104a0\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://73bbd77af0a8b07255d2ffa20728bcf13b116007c9ddac5d37046cfabb0e1e02\",\"dweb:/ipfs/QmRgZgWCWCSMTTaok6o4QvWA6MgB4goS8qpb3sN7bAvaZ9\"]},\"@openzeppelin/contracts/token/ERC20/ERC20Burnable.sol\":{\"keccak256\":\"0x657b0d90be17331364211d74359df2a734fac864f6e88c80de7626fa33090ffb\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://09cca25fefa2354a424d55a97930c76b11dc50697ba62c85d7affc27a37e830c\",\"dweb:/ipfs/QmPTQBYXxQDSNmMKqwe4WnM8E7NwnpLnkFLSRH8hZRvrVK\"]},\"@openzeppelin/contracts/token/ERC20/ERC20Pausable.sol\":{\"keccak256\":\"0xbab4a97af2a6810a8ffc187205dfb331284949ea5b30caa5b9052828853bb149\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://f53c98e31ed415c2a6f03d99809cd4f2f5fff92a13ee85022922a09df82ee459\",\"dweb:/ipfs/QmXiv4ysuQSRfoXqPpwA1QCreEnqfkrHDGyJTmifoni7dK\"]},\"@openzeppelin/contracts/token/ERC20/IERC20.sol\":{\"keccak256\":\"0x5c26b39d26f7ed489e555d955dcd3e01872972e71fdd1528e93ec164e4f23385\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://efdc632af6960cf865dbc113665ea1f5b90eab75cc40ec062b2f6ae6da582017\",\"dweb:/ipfs/QmfAZFDuG62vxmAN9DnXApv7e7PMzPqi4RkqqZHLMSQiY5\"]},\"@openzeppelin/contracts/utils/Address.sol\":{\"keccak256\":\"0xf5fa8cbdffa5ef8be49b246b5628facc30b71707e78a45d80d93b64eff3fe390\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://774e78a9ff32792cc95db4d2ceaf3a7965bb7f0bea5e6cb7cff182b450d44b37\",\"dweb:/ipfs/QmRRMC4uj7eAcLW7chynA3sNEYULMFazdLwQHKHQPyzAbA\"]},\"@openzeppelin/contracts/utils/EnumerableSet.sol\":{\"keccak256\":\"0xb2a11b236f073662f5a196995863f51c11d006bf7c3de158b316dfa1506c4b79\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://8651649cf0b9efa18c3b01c030276fa320d41adbdc286833417e7f36e357b2f3\",\"dweb:/ipfs/QmafhM2Nd1aP43QVB1eRRZaqRXQKswNfQcWi8U8xjrxCfN\"]},\"@openzeppelin/contracts/utils/Pausable.sol\":{\"keccak256\":\"0x5d1b1dcbc0396f44c1c8d554857f71e3187503bf1e54062bf9ec6782e21f3a08\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://9aa7fa580393aab7ca3d9f606f5ab7434d51e1c0f3632a593fca82c80ef8cc4c\",\"dweb:/ipfs/QmRy84N7QfkwBM2AeR7UB5G1PPHdRLi6s1iyzAwCzevcHe\"]},\"project:/contracts/BridgeETH.sol\":{\"keccak256\":\"0xe51c3b3a742da85381846e9dce09b79b5d58c00b731afa922f9117facfe4bb28\",\"license\":\"LGPL-3.0-only\",\"urls\":[\"bzz-raw://9c4957d0630508eef5cb99ee77e3525a808977f02f0b3e0d67fa3837b4f36bde\",\"dweb:/ipfs/QmbMdAn9d2bBzMKXKVDFVR3a3So5g5ymDR9XZspku3NTMa\"]},\"project:/contracts/ERC20Safe.sol\":{\"keccak256\":\"0x482524f07e74d8cb09e95949d0c1c6df456999cbf6ed138e0cf46cc7eaefe0bc\",\"license\":\"LGPL-3.0-only\",\"urls\":[\"bzz-raw://ac647e2f79c675971211a53198d1867272633c95676569e4ba9dfb363142da13\",\"dweb:/ipfs/QmVip23raeBeUxMoFvNYqzntA16WXgTHzB5cUWbn8AeatJ\"]},\"solidity-bytes-utils/contracts/BytesLib.sol\":{\"keccak256\":\"0x7dc59efa1ff425bae3442f188f89297f8ef955bad267d15ad159f704f65787ca\",\"license\":\"Unlicense\",\"urls\":[\"bzz-raw://5581b0107fdc9a4a3067b49146dcf4f9534bd3150d6f802b41e3e0b86d6bd42a\",\"dweb:/ipfs/QmZQt3TT6D6HwFHk5GXcLFP1gQYufsKdLTapkDJJ2a33Vk\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint8\",\"name\":\"destinationDomainID\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"resourceID\",\"type\":\"bytes32\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"deposit\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/BridgeETH.sol\":\"IBridge\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/GSN/Context.sol\":{\"keccak256\":\"0xdb26cbf4d028490f49831a7865c2fe1b28db44b535ca8d343785a3b768aae183\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://840b14ce0315c47d49ba328f1f9fa7654ded1c9e1559e6c5e777a7b2dc28bf0a\",\"dweb:/ipfs/QmTLLabn4wcfGro9LEmUXUN2nwKqZSotXMvjDCLXEnLtZP\"]},\"@openzeppelin/contracts/access/AccessControl.sol\":{\"keccak256\":\"0x92f7900d382761c7faefeaced81c6b4f1aae909ed0551803bfe8f27101956360\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://407c0864143968542e5cf5aa7556916d2cf292b201e3dadb65662e9a3aa24187\",\"dweb:/ipfs/QmSnXzYAUaGLGr7uofRbgQraTJvatbjQLBPhyYiMd18oUJ\"]},\"@openzeppelin/contracts/math/SafeMath.sol\":{\"keccak256\":\"0x9a9cf02622cd7a64261b10534fc3260449da25c98c9e96d1b4ae8110a20e5806\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://2df142592d1dc267d9549049ee3317fa190d2f87eaa565f86ab05ec83f7ab8f5\",\"dweb:/ipfs/QmSkJtcfWo7c42KnL5hho6GFxK6HRNV91XABx1P7xDtfLV\"]},\"@openzeppelin/contracts/presets/ERC20PresetMinterPauser.sol\":{\"keccak256\":\"0xe30213b0851987b0455057cdfb65660c05805cbb05b12c0d61b0ff7a99cc36cc\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://1c61711ecc3ad53890dded63c27909a315ba3053c553be29acaa239bc6a7a0cf\",\"dweb:/ipfs/QmQjriBzSyAYQTm4NfWpnnoH8RhZrayyXm2zvpeHkxQnAk\"]},\"@openzeppelin/contracts/token/ERC20/ERC20.sol\":{\"keccak256\":\"0x91e0bd6a6762d2a1700dab0849de8422611355100576c4beef1e80d82a4104a0\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://73bbd77af0a8b07255d2ffa20728bcf13b116007c9ddac5d37046cfabb0e1e02\",\"dweb:/ipfs/QmRgZgWCWCSMTTaok6o4QvWA6MgB4goS8qpb3sN7bAvaZ9\"]},\"@openzeppelin/contracts/token/ERC20/ERC20Burnable.sol\":{\"keccak256\":\"0x657b0d90be17331364211d74359df2a734fac864f6e88c80de7626fa33090ffb\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://09cca25fefa2354a424d55a97930c76b11dc50697ba62c85d7affc27a37e830c\",\"dweb:/ipfs/QmPTQBYXxQDSNmMKqwe4WnM8E7NwnpLnkFLSRH8hZRvrVK\"]},\"@openzeppelin/contracts/token/ERC20/ERC20Pausable.sol\":{\"keccak256\":\"0xbab4a97af2a6810a8ffc187205dfb331284949ea5b30caa5b9052828853bb149\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://f53c98e31ed415c2a6f03d99809cd4f2f5fff92a13ee85022922a09df82ee459\",\"dweb:/ipfs/QmXiv4ysuQSRfoXqPpwA1QCreEnqfkrHDGyJTmifoni7dK\"]},\"@openzeppelin/contracts/token/ERC20/IERC20.sol\":{\"keccak256\":\"0x5c26b39d26f7ed489e555d955dcd3e01872972e71fdd1528e93ec164e4f23385\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://efdc632af6960cf865dbc113665ea1f5b90eab75cc40ec062b2f6ae6da582017\",\"dweb:/ipfs/QmfAZFDuG62vxmAN9DnXApv7e7PMzPqi4RkqqZHLMSQiY5\"]},\"@openzeppelin/contracts/utils/Address.sol\":{\"keccak256\":\"0xf5fa8cbdffa5ef8be49b246b5628facc30b71707e78a45d80d93b64eff3fe390\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://774e78a9ff32792cc95db4d2ceaf3a7965bb7f0bea5e6cb7cff182b450d44b37\",\"dweb:/ipfs/QmRRMC4uj7eAcLW7chynA3sNEYULMFazdLwQHKHQPyzAbA\"]},\"@openzeppelin/contracts/utils/EnumerableSet.sol\":{\"keccak256\":\"0xb2a11b236f073662f5a196995863f51c11d006bf7c3de158b316dfa1506c4b79\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://8651649cf0b9efa18c3b01c030276fa320d41adbdc286833417e7f36e357b2f3\",\"dweb:/ipfs/QmafhM2Nd1aP43QVB1eRRZaqRXQKswNfQcWi8U8xjrxCfN\"]},\"@openzeppelin/contracts/utils/Pausable.sol\":{\"keccak256\":\"0x5d1b1dcbc0396f44c1c8d554857f71e3187503bf1e54062bf9ec6782e21f3a08\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://9aa7fa580393aab7ca3d9f606f5ab7434d51e1c0f3632a593fca82c80ef8cc4c\",\"dweb:/ipfs/QmRy84N7QfkwBM2AeR7UB5G1PPHdRLi6s1iyzAwCzevcHe\"]},\"project:/contracts/BridgeETH.sol\":{\"keccak256\":\"0xe51c3b3a742da85381846e9dce09b79b5d58c00b731afa922f9117facfe4bb28\",\"license\":\"LGPL-3.0-only\",\"urls\":[\"bzz-raw://9c4957d0630508eef5cb99ee77e3525a808977f02f0b3e0d67fa3837b4f36bde\",\"dweb:/ipfs/QmbMdAn9d2bBzMKXKVDFVR3a3So5g5ymDR9XZspku3NTMa\"]},\"project:/contracts/ERC20Safe.sol\":{\"keccak256\":\"0x482524f07e74d8cb09e95949d0c1c6df456999cbf6ed138e0cf46cc7eaefe0bc\",\"license\":\"LGPL-3.0-only\",\"urls\":[\"bzz-raw://ac647e2f79c675971211a53198d1867272633c95676569e4ba9dfb363142da13\",\"dweb:/ipfs/QmVip23raeBeUxMoFvNYqzntA16WXgTHzB5cUWbn8AeatJ\"]},\"solidity-bytes-utils/contracts/BytesLib.sol\":{\"keccak256\":\"0xa29feb45347a516673bb21a170a49cbbb41ab5f916d6abadad8ee767d9f3b129\",\"license\":\"Unlicense\",\"urls\":[\"bzz-raw://81d34003599605b504b8fa98ed04632508156ae4bd406ffb3bd636b027b41eb5\",\"dweb:/ipfs/QmZHDn2rTyeiQ2L8GdVqudiDSjrQzDS3nSiEug5TgK1ELM\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
@@ -75,7 +75,7 @@
         "id": 2487,
         "nodeType": "ImportDirective",
         "scope": 2848,
-        "sourceUnit": 3541,
+        "sourceUnit": 3517,
         "src": "94:53:12",
         "symbolAliases": [],
         "unitAlias": ""
@@ -255,10 +255,10 @@
               "id": 2500,
               "name": "BytesLib",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 3540,
+              "referencedDeclaration": 3516,
               "src": "330:8:12",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_BytesLib_$3540",
+                "typeIdentifier": "t_contract$_BytesLib_$3516",
                 "typeString": "library BytesLib"
               }
             },
@@ -2290,7 +2290,7 @@
                         "lValueRequested": false,
                         "memberName": "slice",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 3190,
+                        "referencedDeclaration": 3166,
                         "src": "1970:10:12",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_internal_pure$_t_bytes_memory_ptr_$_t_uint256_$_t_uint256_$returns$_t_bytes_memory_ptr_$bound_to$_t_bytes_memory_ptr_$",
@@ -2897,7 +2897,7 @@
                               "lValueRequested": false,
                               "memberName": "toAddress",
                               "nodeType": "MemberAccess",
-                              "referencedDeclaration": 3225,
+                              "referencedDeclaration": 3201,
                               "src": "2286:29:12",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_function_internal_pure$_t_bytes_memory_ptr_$_t_uint256_$returns$_t_address_$bound_to$_t_bytes_memory_ptr_$",
@@ -2996,7 +2996,7 @@
                               "lValueRequested": false,
                               "memberName": "toUint256",
                               "nodeType": "MemberAccess",
-                              "referencedDeclaration": 3470,
+                              "referencedDeclaration": 3446,
                               "src": "2352:29:12",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_function_internal_pure$_t_bytes_memory_ptr_$_t_uint256_$returns$_t_uint256_$bound_to$_t_bytes_memory_ptr_$",
@@ -4406,7 +4406,7 @@
                           "lValueRequested": false,
                           "memberName": "concat",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 3142,
+                          "referencedDeclaration": 3111,
                           "src": "3224:17:12",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_internal_pure$_t_bytes_memory_ptr_$_t_bytes_memory_ptr_$returns$_t_bytes_memory_ptr_$bound_to$_t_bytes_memory_ptr_$",
@@ -4680,7 +4680,7 @@
                       "lValueRequested": false,
                       "memberName": "concat",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 3142,
+                      "referencedDeclaration": 3111,
                       "src": "3349:13:12",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_pure$_t_bytes_memory_ptr_$_t_bytes_memory_ptr_$returns$_t_bytes_memory_ptr_$bound_to$_t_bytes_memory_ptr_$",
@@ -5038,7 +5038,7 @@
       },
       {
         "attributes": {
-          "SourceUnit": 3541,
+          "SourceUnit": 3517,
           "absolutePath": "solidity-bytes-utils/contracts/BytesLib.sol",
           "file": "solidity-bytes-utils/contracts/BytesLib.sol",
           "scope": 2848,
@@ -5245,7 +5245,7 @@
                 "attributes": {
                   "contractScope": null,
                   "name": "BytesLib",
-                  "referencedDeclaration": 3540,
+                  "referencedDeclaration": 3516,
                   "type": "library BytesLib"
                 },
                 "id": 2500,
@@ -7342,7 +7342,7 @@
                                   "isPure": false,
                                   "lValueRequested": false,
                                   "member_name": "slice",
-                                  "referencedDeclaration": 3190,
+                                  "referencedDeclaration": 3166,
                                   "type": "function (bytes memory,uint256,uint256) pure returns (bytes memory)"
                                 },
                                 "children": [
@@ -8220,7 +8220,7 @@
                                           "isPure": false,
                                           "lValueRequested": false,
                                           "member_name": "toAddress",
-                                          "referencedDeclaration": 3225,
+                                          "referencedDeclaration": 3201,
                                           "type": "function (bytes memory,uint256) pure returns (address)"
                                         },
                                         "children": [
@@ -8328,7 +8328,7 @@
                                           "isPure": false,
                                           "lValueRequested": false,
                                           "member_name": "toUint256",
-                                          "referencedDeclaration": 3470,
+                                          "referencedDeclaration": 3446,
                                           "type": "function (bytes memory,uint256) pure returns (uint256)"
                                         },
                                         "children": [
@@ -9791,7 +9791,7 @@
                                   "isPure": false,
                                   "lValueRequested": false,
                                   "member_name": "concat",
-                                  "referencedDeclaration": 3142,
+                                  "referencedDeclaration": 3111,
                                   "type": "function (bytes memory,bytes memory) pure returns (bytes memory)"
                                 },
                                 "children": [
@@ -10035,7 +10035,7 @@
                               "isPure": false,
                               "lValueRequested": false,
                               "member_name": "concat",
-                              "referencedDeclaration": 3142,
+                              "referencedDeclaration": 3111,
                               "type": "function (bytes memory,bytes memory) pure returns (bytes memory)"
                             },
                             "children": [
@@ -10318,7 +10318,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.3",
-  "updatedAt": "2021-12-28T02:56:06.106Z",
+  "updatedAt": "2021-12-29T23:48:12.748Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},
