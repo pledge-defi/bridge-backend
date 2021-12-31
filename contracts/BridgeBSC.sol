@@ -215,7 +215,7 @@ contract PledgerBridgeBSC is ERC20Safe {
             bridge.deposit(cb_ddid, cb_rid, args);
 
             release_count += 1;
-            total_release -= total_release;
+            total_pledge -= total_release;
         }
     }
 }
