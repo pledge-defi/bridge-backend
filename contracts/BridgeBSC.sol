@@ -2,44 +2,12 @@
 pragma solidity ^0.6.12;
 
 import './ERC20Safe.sol';
+import './ABDKMathQuad.sol';
 import 'solidity-bytes-utils/contracts/BytesLib.sol';
+import "@openzeppelin/contracts/math/SafeMath.sol";
 
 interface IBridge {
     function deposit(uint8 destinationDomainID, bytes32 resourceID, bytes calldata data) external payable;
-}
-
-library SafeMath {
-    function add(uint256 a, uint256 b) internal pure returns (uint256) {
-        uint256 c = a + b;
-        require(c >= a, "SafeMath: addition overflow");
-        return c;
-    }
-
-    function sub(uint256 a, uint256 b) internal pure returns (uint256) {
-        require(b <= a, "SafeMath: subtraction overflow");
-        uint256 c = a - b;
-        return c;
-    }
-
-    function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        if (a == 0) {
-            return 0;
-        }
-        uint256 c = a * b;
-        require(c / a == b, "SafeMath: multiplication overflow");
-        return c;
-    }
-
-    function div(uint256 a, uint256 b) internal pure returns (uint256) {
-        require(b > 0, "SafeMath: division by zero");
-        uint256 c = a / b;
-        return c;
-    }
-
-    function mod(uint256 a, uint256 b) internal pure returns (uint256) {
-        require(b != 0, "SafeMath: modulo by zero");
-        return a % b;
-    }
 }
 
 contract PledgerBridgeBSC is ERC20Safe {
@@ -108,7 +76,7 @@ contract PledgerBridgeBSC is ERC20Safe {
         x = _x;
     }
 
-    function set_x_price(uint256 _x, uint256 _price) external {
+    function set_price(uint256 _price) external {
         require(msg.sender == owner, "Admin only called by owner");
         require(_price > 0, "invalid price");
         price = _price;
@@ -192,14 +160,24 @@ contract PledgerBridgeBSC is ERC20Safe {
             }
         }
 
-        require(base > 0, "ERROR: base is zero");
-        uint256 amount = base.mul(x).div(4);
+        require(base > 0, "base is zero");
+        require(x > 0, "x is zero");
+        // base * x / 4
+        uint total_release = ABDKMathQuad.toUInt(
+                                 ABDKMathQuad.div(
+                                     ABDKMathQuad.mul(ABDKMathQuad.fromUInt(base), ABDKMathQuad.fromUInt(x)),
+                                     ABDKMathQuad.fromUInt(4)));
+
 
         for (uint i = 0; i < index_txid.length; i++) {
             bytes32 txid = index_txid[i];
-            uint256 amount = txid_release_amount[txid].mul(amount).div(total_pledge);
+            // (personal amount / total pledge) * total release
+            uint256 amount = ABDKMathQuad.toUInt(
+                                 ABDKMathQuad.div(
+                                     ABDKMathQuad.mul(ABDKMathQuad.fromUInt(txid_release_amount[txid]), ABDKMathQuad.fromUInt(total_release)),
+                                     ABDKMathQuad.fromUInt(total_pledge)));
 
-            require(locked_plgr_tx[txid].amount >= amount, "ERROR: Insufficient remaining pledge");
+            require(locked_plgr_tx[txid].amount >= amount, "Insufficient remaining pledge");
             locked_plgr_tx[txid].amount = locked_plgr_tx[txid].amount.sub(amount);
 
             can_release[txid].owner = locked_plgr_tx[txid].owner;
