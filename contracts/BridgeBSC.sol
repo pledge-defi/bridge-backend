@@ -8,8 +8,43 @@ interface IBridge {
     function deposit(uint8 destinationDomainID, bytes32 resourceID, bytes calldata data) external payable;
 }
 
+library SafeMath {
+    function add(uint256 a, uint256 b) internal pure returns (uint256) {
+        uint256 c = a + b;
+        require(c >= a, "SafeMath: addition overflow");
+        return c;
+    }
+
+    function sub(uint256 a, uint256 b) internal pure returns (uint256) {
+        require(b <= a, "SafeMath: subtraction overflow");
+        uint256 c = a - b;
+        return c;
+    }
+
+    function mul(uint256 a, uint256 b) internal pure returns (uint256) {
+        if (a == 0) {
+            return 0;
+        }
+        uint256 c = a * b;
+        require(c / a == b, "SafeMath: multiplication overflow");
+        return c;
+    }
+
+    function div(uint256 a, uint256 b) internal pure returns (uint256) {
+        require(b > 0, "SafeMath: division by zero");
+        uint256 c = a / b;
+        return c;
+    }
+
+    function mod(uint256 a, uint256 b) internal pure returns (uint256) {
+        require(b != 0, "SafeMath: modulo by zero");
+        return a % b;
+    }
+}
+
 contract PledgerBridgeBSC is ERC20Safe {
     using BytesLib for bytes;
+    using SafeMath for uint256;
 
     address public owner;
 
@@ -21,8 +56,9 @@ contract PledgerBridgeBSC is ERC20Safe {
 
     uint256 public wait_time;
 
-    uint256 public release_count = 0;
+    uint256 public x = 1;
     uint256 public price = 1;
+    uint256 public base = 100000 * 10 ** 18;
     uint256 public total_pledge = 0;
 
     // Arguments for chainbridge.
@@ -63,8 +99,25 @@ contract PledgerBridgeBSC is ERC20Safe {
 
     function admin_update_configure(uint256 _wait_time) external {
         require(msg.sender == owner, "Admin only called by owner");
-
         wait_time = _wait_time;
+    }
+
+    function set_x(uint256 _x) external {
+        require(msg.sender == owner, "Admin only called by owner");
+        require(_x > 0, "invalid x");
+        x = _x;
+    }
+
+    function set_x_price(uint256 _x, uint256 _price) external {
+        require(msg.sender == owner, "Admin only called by owner");
+        require(_price > 0, "invalid price");
+        price = _price;
+    }
+
+    function set_base(uint256 _base) external {
+        require(msg.sender == owner, "Admin only called by owner");
+        require(_base > 0, "invalid base");
+        base = _base;
     }
 
     function admin_update_bridge(address _bridge_address, address _handler_address, uint8 _cb_ddid, bytes32 _cb_rid) external {
@@ -102,8 +155,8 @@ contract PledgerBridgeBSC is ERC20Safe {
 
         require(value >= amount, "You have no enough PLGR");
 
-        plgr_amounts[msg.sender]  -= amount;
-
+        //plgr_amounts[msg.sender] -= amount;
+        plgr_amounts[msg.sender]= plgr_amounts[msg.sender].sub(amount);
         releaseERC20(plgr_address, msg.sender, amount);
 
         emit WithdrawPLGR(msg.sender, amount);
@@ -116,26 +169,10 @@ contract PledgerBridgeBSC is ERC20Safe {
         address addr = data.toAddress(0);
         uint256 amount = data.toUint256(20);
 
-        plgr_amounts[addr] += amount / 3;
-        total_pledge += amount / 3;
-    }
-
-    function get_base(uint256 _count) view public returns(uint256) {
-        uint256 base = 0;
-        uint256 n = _count / 12 + 1; // 3 months = 12 weeks
-        if (n <= 4) { // 1~12 months
-            base = n * 100000 * 10 ** 18;
-        } else if (n > 4 && n <= 8) { // 12~24 months
-            base = 2000000 * 10 ** 18;
-        } else if (n > 8 && n <= 12) { // 24~36 months
-            base = 4000000 * 10 ** 18;
-        } else if (n > 12 && n <= 16) { // 36~48 months
-            base = 10000000 * 10 ** 18;
-        } else { // 48~ months
-            base = 20000000 * 10 ** 18;
-        }
-
-        return base;
+        //plgr_amounts[addr] += amount / 3;
+        //total_pledge += amount / 3;
+        plgr_amounts[addr] = plgr_amounts[addr].add(amount.div(3));
+        total_pledge = total_pledge.add(amount.div(3));
     }
 
     function check_upkeep() view public returns (int256) {
@@ -155,27 +192,15 @@ contract PledgerBridgeBSC is ERC20Safe {
             }
         }
 
-        // to do: get price from oracle.
-        uint256 x = 0;
-        if (price < 1) {
-            x = 1;
-        } else if (price >= 1 && price <= 125) {
-            // to do: x is the cubic root of price.
-            x = 1;
-        } else {
-            x = 5;
-        }
-
-        uint256 base = get_base(release_count);
         require(base > 0, "ERROR: base is zero");
-        uint256 amount = base * x / 4;
+        uint256 amount = base.mul(x).div(4);
 
-        for (uint i = 0; i< index_txid.length; i++) {
+        for (uint i = 0; i < index_txid.length; i++) {
             bytes32 txid = index_txid[i];
-            uint256 amount = txid_release_amount[txid] * amount / total_pledge;
+            uint256 amount = txid_release_amount[txid].mul(amount).div(total_pledge);
 
             require(locked_plgr_tx[txid].amount >= amount, "ERROR: Insufficient remaining pledge");
-            locked_plgr_tx[txid].amount -= amount;
+            locked_plgr_tx[txid].amount = locked_plgr_tx[txid].amount.sub(amount);
 
             can_release[txid].owner = locked_plgr_tx[txid].owner;
             can_release[txid] = amount;
@@ -214,8 +239,7 @@ contract PledgerBridgeBSC is ERC20Safe {
             IBridge bridge = IBridge(bridge_address);
             bridge.deposit(cb_ddid, cb_rid, args);
 
-            release_count += 1;
-            total_pledge -= total_release;
+            total_pledge = total_pledge.sub(total_release);
         }
     }
 }
