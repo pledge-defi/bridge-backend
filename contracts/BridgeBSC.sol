@@ -204,7 +204,6 @@ contract PledgerBridgeBSC is ERC20Safe {
                 total_release += can_release[txid].amount;
 
                 delete can_release[txid];
-                delete index_txid[i];
                 if (locked_plgr_tx[txid].amount < 1*10**15) { // amount < 0.001
                     delete locked_plgr_tx[txid];
                     delete locked_infos[i];
