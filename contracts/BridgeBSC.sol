@@ -167,20 +167,20 @@ contract PledgerBridgeBSC is ERC20Safe {
         require(base > 0, "base is zero");
         require(x > 0, "x is zero");
         // base * x / 4
-        uint total_release = ABDKMathQuad.toUInt(
-            ABDKMathQuad.div(
-                ABDKMathQuad.mul(ABDKMathQuad.fromUInt(base), ABDKMathQuad.fromUInt(x)),
-                ABDKMathQuad.fromUInt(4)));
-
+//        uint256 total_release = ABDKMathQuad.toUInt(
+//            ABDKMathQuad.div(
+//                ABDKMathQuad.mul(ABDKMathQuad.fromUInt(base), ABDKMathQuad.fromUInt(x)),
+//                ABDKMathQuad.fromUInt(4)));
+        uint256 total_release = base.mul(x).div(4);
 
         for (uint i = 0; i < index_txid.length; i++) {
             bytes32 txid = index_txid[i];
             // (personal amount / total pledge) * total release
-            uint256 amount = ABDKMathQuad.toUInt(
-                ABDKMathQuad.div(
-                    ABDKMathQuad.mul(ABDKMathQuad.fromUInt(txid_release_amount[txid]), ABDKMathQuad.fromUInt(total_release)),
-                    ABDKMathQuad.fromUInt(total_pledge*1000)));
-
+//            uint256 amount = ABDKMathQuad.toUInt(
+//                ABDKMathQuad.div(
+//                    ABDKMathQuad.mul(ABDKMathQuad.fromUInt(txid_release_amount[txid]), ABDKMathQuad.fromUInt(total_release)),
+//                    ABDKMathQuad.fromUInt(total_pledge*1000)));
+            uint256 amount = txid_release_amount[txid].mul(total_release).div(total_pledge*1000);
             require(locked_plgr_tx[txid].amount >= amount, "Insufficient remaining pledge");
             locked_plgr_tx[txid].amount = locked_plgr_tx[txid].amount.sub(amount);
 
