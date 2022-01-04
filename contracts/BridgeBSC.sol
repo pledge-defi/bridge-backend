@@ -190,34 +190,31 @@ contract PledgerBridgeBSC is ERC20Safe {
 
 
         bytes memory rdata = abi.encode(count);
-        //uint256 total_release = 0;
-        if (index >= 0) {
-            for (uint i = 0; i <= uint256(index); i ++) {
-                bytes32 txid = index_txid[i];
+        for (uint i = 0; i < count; i ++) {
+            bytes32 txid = index_txid[i];
 
-                bytes memory addr = abi.encodePacked(can_release[txid].owner);
-                rdata = rdata.concat(addr);
+            bytes memory addr = abi.encodePacked(can_release[txid].owner);
+            rdata = rdata.concat(addr);
 
-                bytes memory amount = abi.encode(can_release[txid].amount);
-                rdata = rdata.concat(amount);
+            bytes memory amount = abi.encode(can_release[txid].amount);
+            rdata = rdata.concat(amount);
 
-                total_release += can_release[txid].amount;
+            total_release += can_release[txid].amount;
 
-                delete can_release[txid];
-                delete index_txid[i];
-                if (locked_plgr_tx[txid].amount < 1*10**15) { // amount < 0.001
-                    delete locked_plgr_tx[txid];
-                    delete locked_infos[i];
-                }
+            delete can_release[txid];
+            if (locked_plgr_tx[txid].amount < 1*10**15) { // amount < 0.001
+                delete locked_plgr_tx[txid];
+                delete locked_infos[i];
             }
-
-            bytes memory args_bytes = abi.encode(rdata);
-            bytes memory length = abi.encode(args_bytes.length);
-            bytes memory args = length.concat(args_bytes);
-            IBridge bridge = IBridge(bridge_address);
-            bridge.deposit(cb_ddid, cb_rid, args);
-
-            total_pledge = total_pledge.sub(total_release);
         }
+        bytes32[] storage arr;
+        index_txid = arr;
+        bytes memory args_bytes = abi.encode(rdata);
+        bytes memory length = abi.encode(args_bytes.length);
+        bytes memory args = length.concat(args_bytes);
+        IBridge bridge = IBridge(bridge_address);
+        bridge.deposit(cb_ddid, cb_rid, args);
+
+        total_pledge = total_pledge.sub(total_release);
     }
 }
