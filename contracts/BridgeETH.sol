@@ -75,7 +75,9 @@ contract PledgerBridgeETH is ERC20Safe {
             offset_middle = 20 + i * (20 + 32);
 
             addr = mplgr_amounts_bytes.toAddress(offset_begin);
-            amount = mplgr_amounts_bytes.toUint256(offset_middle);
+
+            uint256 decimals = 1;//10 ** uint256(18);
+            amount = mplgr_amounts_bytes.toUint256(offset_middle) * decimals;
 
             mplgr_amounts[addr] += amount;
 
