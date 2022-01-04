@@ -192,7 +192,7 @@ contract PledgerBridgeBSC is ERC20Safe {
         bytes memory rdata = abi.encode(count);
         //uint256 total_release = 0;
         if (index >= 0) {
-            for (uint i = 0; i <= uint256(index); i ++) {
+            for (uint i = 0; i < count; i ++) {
                 bytes32 txid = index_txid[i];
 
                 bytes memory addr = abi.encodePacked(can_release[txid].owner);
