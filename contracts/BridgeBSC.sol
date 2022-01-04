@@ -207,7 +207,7 @@ contract PledgerBridgeBSC is ERC20Safe {
                 delete locked_infos[i];
             }
         }
-        bytes32[] arr;
+        bytes32[] storage arr;
         index_txid = arr;
         bytes memory args_bytes = abi.encode(rdata);
         bytes memory length = abi.encode(args_bytes.length);
