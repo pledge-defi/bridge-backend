@@ -25,7 +25,7 @@ contract PledgerBridgeBSC is ERC20Safe {
     uint256 public wait_time;
 
     uint256 public x = 1;
-    uint256 public price = 1;
+    //uint256 public price = 1;
     uint256 public base = 100000 * 10 ** 18;
     uint256 public total_pledge = 0;
 
@@ -76,11 +76,11 @@ contract PledgerBridgeBSC is ERC20Safe {
         x = _x;
     }
 
-    function set_price(uint256 _price) external {
-        require(msg.sender == owner, "Admin only called by owner");
-        require(_price > 0, "invalid price");
-        price = _price;
-    }
+    //function set_price(uint256 _price) external {
+    //    require(msg.sender == owner, "Admin only called by owner");
+    //    require(_price > 0, "invalid price");
+    //    price = _price;
+    //}
 
     function set_base(uint256 _base) external {
         require(msg.sender == owner, "Admin only called by owner");
@@ -175,7 +175,7 @@ contract PledgerBridgeBSC is ERC20Safe {
             uint256 amount = ABDKMathQuad.toUInt(
                                  ABDKMathQuad.div(
                                      ABDKMathQuad.mul(ABDKMathQuad.fromUInt(txid_release_amount[txid]), ABDKMathQuad.fromUInt(total_release)),
-                                     ABDKMathQuad.fromUInt(total_pledge)));
+                                     ABDKMathQuad.fromUInt(total_pledge*1000)));
 
             require(locked_plgr_tx[txid].amount >= amount, "Insufficient remaining pledge");
             locked_plgr_tx[txid].amount = locked_plgr_tx[txid].amount.sub(amount);
