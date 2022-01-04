@@ -153,7 +153,7 @@ contract PledgerBridgeBSC is ERC20Safe {
         return 0;
     }
 
-    function execute_upkeep(int256 index) external {
+    function execute_upkeep() external {
         for(uint i = 0; i != locked_infos.length; i ++) {
             if (locked_infos[i].time + wait_time <= block.timestamp) {
                 bytes32 txid = locked_infos[i].txid;
