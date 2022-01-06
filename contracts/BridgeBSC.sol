@@ -26,9 +26,8 @@ contract PledgerBridgeBSC is ERC20Safe {
 
     uint256 public x = 1;
     uint256 public base = 100000 * 10 ** 18;
-    uint256 public total_pledge = 0;
 
-    uint256 public totalLockedAmounts;
+    uint256 public total_locked_amounts;
 
     // Arguments for chainbridge.
     uint8 public cb_ddid;
@@ -115,7 +114,7 @@ contract PledgerBridgeBSC is ERC20Safe {
 
         locked_infos.push(lock_info);
 
-        totalLockedAmounts += amount;
+        total_locked_amounts += amount;
 
         emit DepositPLGR(txid, _owner, amount, block.timestamp);
 
@@ -142,10 +141,7 @@ contract PledgerBridgeBSC is ERC20Safe {
         address addr = data.toAddress(0);
         uint256 amount = data.toUint256(20);
 
-        //plgr_amounts[addr] += amount / 3;
-        //total_pledge += amount / 3;
-        plgr_amounts[addr] = plgr_amounts[addr].add(amount.div(3));
-        // total_pledge = total_pledge.add(amount.div(3));
+        plgr_amounts[addr] = plgr_amounts[addr].add(amount.mul(3));
     }
 
     function execute_upkeep() external {
@@ -159,11 +155,11 @@ contract PledgerBridgeBSC is ERC20Safe {
         uint total_release = base * x / 4;
 
         bool crossAllLocked = true;
-        // 如果 totalLockedAmounts <= total_release => 当前锁定的数额，全部过桥
-        if (totalLockedAmounts <= total_release) {
+        // 如果 total_locked_amounts <= total_release => 当前锁定的数额，全部过桥
+        if (total_locked_amounts <= total_release) {
             crossAllLocked = true;
         } else {
-            // 如果 totalLockedAmounts > total_release => 则，按照 (userLocked / totalLockedAmounts) * total_release 进行过桥
+            // 如果 total_locked_amounts > total_release => 则，按照 (userLocked / total_locked_amounts) * total_release 进行过桥
             crossAllLocked = false;
         }
 
@@ -171,7 +167,7 @@ contract PledgerBridgeBSC is ERC20Safe {
             bytes32 txid = locked_infos[i].txid;
             uint256 lockedAmount = locked_plgr_tx[txid].amount;
 
-            uint256 crossedAmount = crossAllLocked ? lockedAmount : (lockedAmount / totalLockedAmounts) * total_release;
+            uint256 crossedAmount = crossAllLocked ? lockedAmount : (lockedAmount / total_locked_amounts) * total_release;
             uint256 ruleOfRatioAmount = crossedAmount / 3;
             
             can_release[txid].owner = locked_plgr_tx[txid].owner;
