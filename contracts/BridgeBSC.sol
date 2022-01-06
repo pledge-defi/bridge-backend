@@ -24,8 +24,7 @@ contract PledgerBridgeBSC is ERC20Safe {
 
     uint256 public wait_time;
 
-    uint256 public x = 1000;
-    //uint256 public price = 1;
+    uint256 public x = 1;
     uint256 public base = 100000 * 10 ** 18;
     uint256 public total_pledge = 0;
 
