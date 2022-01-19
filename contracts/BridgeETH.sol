@@ -11,30 +11,30 @@ interface IBridge {
 contract PledgerBridgeETH is ERC20Safe {
     using BytesLib for bytes;
 
-    address public bridge_address;
-
-    address public handler_address;
-
-    address public owner;
-
+    // 管理员设置Bridge配置
     address public mplgr_address;
-
-    // Arguments for chainbridge.
+    address public bridge_address;
+    address public handler_address;
     uint8 public cb_ddid;
     bytes32 public cb_rid;
 
-    // Store mplgr amounts by address.
+    address public owner;
+
     mapping(address => uint256) public mplgr_amounts;
 
+    // [由管理员进行设置]
+    // 设置要收取的垮桥fee
+    // 默认0.005 ETH
+    uint256 public bridge_gas_fee = 0.005 * 10 ** 18;
+    // 接收bridge gas fee
+    mapping(address => uint256) public balances;
+
     event WithdrawMPLGR(address recipient, uint256 amount);
-
     event DepositMPLGR(address owner, uint256 amount);
-
     event DepositMPLGRBridge(address owner, uint256 amount);
-
     event DebugDepositMPLGR(bytes data);
 
-    constructor(address _bridge_address, address _handler_address, address _mplgr_address, uint8 _cb_ddid, bytes32 _cb_rid) public {
+    constructor(address _bridge_address, address _handler_address, address _mplgr_address, uint8 _cb_ddid, bytes32 _cb_rid) {
         owner = msg.sender;
         bridge_address = _bridge_address;
         handler_address = _handler_address;
@@ -43,13 +43,21 @@ contract PledgerBridgeETH is ERC20Safe {
         cb_rid = _cb_rid;
     }
 
+    // 管理员方法: 更新Bridge配置
     function admin_update_bridge(address _bridge_address, address _handler_address, uint8 _cb_ddid, bytes32 _cb_rid) public {
-        require(msg.sender == owner, "Admin only called by owner");
+        require(msg.sender == owner, "Only called by owner");
 
         bridge_address = _bridge_address;
         handler_address = _handler_address;
         cb_ddid = _cb_ddid;
         cb_rid = _cb_rid;
+    }
+
+    // 管理员方法：设置垮桥的gas fee
+    function set_bridge_gas_fee(uint256 _bridge_gas_fee) public {
+        require(msg.sender == owner, "Only called by owner");
+
+        bridge_gas_fee = _bridge_gas_fee;    
     }
 
     // Chainbridge call this function on ETH
@@ -76,8 +84,7 @@ contract PledgerBridgeETH is ERC20Safe {
 
             addr = mplgr_amounts_bytes.toAddress(offset_begin);
 
-            uint256 decimals = 1;//10 ** uint256(18);
-            amount = mplgr_amounts_bytes.toUint256(offset_middle) * decimals;
+            amount = mplgr_amounts_bytes.toUint256(offset_middle);
 
             mplgr_amounts[addr] += amount;
 
@@ -99,7 +106,10 @@ contract PledgerBridgeETH is ERC20Safe {
     }
 
     // Call bridge
-    function deposit_mplgr(address _owner, uint256 amount) external {
+    function deposit_mplgr(address _owner, uint256 amount) external payable {
+        require(msg.value >= bridge_gas_fee, "Bridge gas fee is insufficient");
+        balances[owner] += msg.value;
+
         lockERC20(mplgr_address, _owner, address(this), amount);
 
         bytes memory amount_bytes = abi.encode(amount);

@@ -33,6 +33,8 @@ contract PledgerBridgeBSC is ERC20Safe {
     // 设置要收取的垮桥fee
     // 默认0.05 BNB
     uint256 public bridge_gas_fee = 0.05 * 10 ** 18;
+    // 接收bridge gas fee
+    mapping(address => uint256) public balances;
 
     // PLGR 和 MPLGR 的兑换因子
     // PLGR <=> mplgr | 3 <=> 1 
@@ -100,6 +102,7 @@ contract PledgerBridgeBSC is ERC20Safe {
     // 接收预存的gas fee
     function deposit_plgr(address _owner, uint256 amount) external payable returns(bytes32) {
         require(msg.value >= bridge_gas_fee, "Bridge gas fee is insufficient");
+        balances[owner] += msg.value;
 
         bytes32 txid = keccak256(abi.encode(_owner, amount, block.timestamp, plgr_lock_nonce));
         plgr_lock_nonce ++;
