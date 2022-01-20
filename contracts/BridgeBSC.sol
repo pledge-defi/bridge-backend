@@ -47,16 +47,19 @@ contract PledgerBridgeBSC is ERC20Safe {
         address owner;
         uint256 amount;
     }
-    struct LockInfo {
-        bytes32 txid;
-        uint256 time;
-    }
-    LockInfo[] public locked_infos;
+    // struct LockInfo {
+    //     bytes32 txid;
+    //     uint256 time;
+    // }
+    // LockInfo[] public locked_infos;
+    LockedPLGRTx[] public locked_infos;
 
     mapping (address => uint256) public plgr_amounts;
-    mapping (bytes32 => LockedPLGRTx) public locked_plgr_tx;
-    mapping (bytes32 => LockedPLGRTx) public can_release;
-    mapping(bytes32 => uint256) txid_release_amount;
+    // mapping (bytes32 => LockedPLGRTx) public locked_plgr_tx;
+    // mapping (bytes32 => LockedPLGRTx) public can_release;
+    // mapping(bytes32 => uint256) txid_release_amount;
+    mapping (address => LockedPLGRTx) public locked_plgr_tx;
+    mapping (address => LockedPLGRTx) public can_release;
 
     // uint256 plgr_lock_nonce = 0;
 
@@ -100,7 +103,8 @@ contract PledgerBridgeBSC is ERC20Safe {
 
     // User call this function on BSC to deposit PLGR.
     // 接收预存的gas fee
-    function deposit_plgr(address _owner, uint256 amount) external payable returns(bytes32) {
+    function deposit_plgr(address _owner, uint256 amount) external payable {
+    // function deposit_plgr(address _owner, uint256 amount) external payable returns(bytes32) {
         require(msg.value >= bridge_gas_fee, "Bridge gas fee is insufficient");
         balances[owner] += msg.value;
 
@@ -109,29 +113,29 @@ contract PledgerBridgeBSC is ERC20Safe {
 
         // 如果当前锁定交易存在，则更新amount
         // 如果当前锁定交易不存在， 则创建新map
-        bytes32 txid = keccak256(abi.encode(_owner));
-        if (locked_plgr_tx[txid].owner == _owner) {
+        // bytes32 txid = keccak256(abi.encode(_owner));
+        if (locked_plgr_tx[_owner].owner == _owner) {
             // locked_plgr_tx[txid].owner = _owner;
 
             // Append 当前用户的锁定量 
-            uint256 user_current_locked = locked_plgr_tx[txid].amount;
-            locked_plgr_tx[txid].amount = user_current_locked + amount;
+            uint256 user_current_locked = locked_plgr_tx[_owner].amount;
+            locked_plgr_tx[_owner].amount = user_current_locked + amount;
         } else {
-            locked_plgr_tx[txid].owner = _owner;
-            locked_plgr_tx[txid].amount = amount;
+            locked_plgr_tx[_owner].owner = _owner;
+            locked_plgr_tx[_owner].amount = amount;
         }
 
         lockERC20(plgr_address, _owner, address(this), amount);
 
-        LockInfo memory lock_info = LockInfo (txid, block.timestamp);
+        LockedPLGRTx memory lock_info = LockedPLGRTx (_owner, locked_plgr_tx[_owner].amount);
         locked_infos.push(lock_info);
 
         // 更新PLGR总锁定量
         total_plgr_locked += amount;
 
-        emit DepositPLGR(txid, _owner, amount, block.timestamp);
+        // emit DepositPLGR(txid, _owner, amount, block.timestamp);
 
-        return txid;
+        // return txid;
     }
 
     // User call this function on BSC to widthdraw PLGR.
@@ -176,7 +180,7 @@ contract PledgerBridgeBSC is ERC20Safe {
 
         uint256 count = locked_infos.length;
         for (uint i = 0; i < count; i++) {
-            bytes32 txid = locked_infos[i].txid;
+            address txid = locked_infos[i].owner;
 
             // 当前用户PLGR的锁定量
             uint256 user_plgr_locked = locked_plgr_tx[txid].amount;
@@ -200,7 +204,7 @@ contract PledgerBridgeBSC is ERC20Safe {
         // ABI编码
         bytes memory rdata = abi.encode(count);
         for (uint i = 0; i < count; i ++) {
-            bytes32 txid = locked_infos[i].txid;
+            address txid = locked_infos[i].owner;
 
             bytes memory addr = abi.encodePacked(can_release[txid].owner);
             rdata = rdata.concat(addr);
@@ -211,7 +215,7 @@ contract PledgerBridgeBSC is ERC20Safe {
 
         // 数据清除
         for (uint i=0; i<count;i++) {
-            bytes32 txid = locked_infos[i].txid;
+            address txid = locked_infos[i].owner;
 
             // 释放MPLGR垮桥数据
             delete can_release[txid];
