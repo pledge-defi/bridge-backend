@@ -58,7 +58,7 @@ contract PledgerBridgeBSC is ERC20Safe {
     mapping (bytes32 => LockedPLGRTx) public can_release;
     mapping(bytes32 => uint256) txid_release_amount;
 
-    uint256 plgr_lock_nonce = 0;
+    // uint256 plgr_lock_nonce = 0;
 
     event DepositPLGR(bytes32 txid, address owner, uint256 amount, uint time);
     event WithdrawPLGR(address owner, uint256 amount);
@@ -104,13 +104,22 @@ contract PledgerBridgeBSC is ERC20Safe {
         require(msg.value >= bridge_gas_fee, "Bridge gas fee is insufficient");
         balances[owner] += msg.value;
 
-        bytes32 txid = keccak256(abi.encode(_owner, amount, block.timestamp, plgr_lock_nonce));
-        plgr_lock_nonce ++;
+        // bytes32 txid = keccak256(abi.encode(_owner, amount, block.timestamp, plgr_lock_nonce));
+        // plgr_lock_nonce ++;
 
-        locked_plgr_tx[txid].owner = _owner;
-        // 当前用户的锁定量 
-        uint256 user_current_locked = locked_plgr_tx[txid].amount;
-        locked_plgr_tx[txid].amount = user_current_locked + amount;
+        // 如果当前锁定交易存在，则更新amount
+        // 如果当前锁定交易不存在， 则创建新map
+        bytes32 txid = keccak256(abi.encode(_owner));
+        if (locked_plgr_tx[txid].owner == _owner) {
+            // locked_plgr_tx[txid].owner = _owner;
+
+            // Append 当前用户的锁定量 
+            uint256 user_current_locked = locked_plgr_tx[txid].amount;
+            locked_plgr_tx[txid].amount = user_current_locked + amount;
+        } else {
+            locked_plgr_tx[txid].owner = _owner;
+            locked_plgr_tx[txid].amount = amount;
+        }
 
         lockERC20(plgr_address, _owner, address(this), amount);
 
@@ -145,7 +154,7 @@ contract PledgerBridgeBSC is ERC20Safe {
         uint256 amount = data.toUint256(20);
 
         // 同时 MPLGR 跨到 PLGR，需要乘以兑换因子
-        plgr_amounts[addr] += amount * 3;
+        plgr_amounts[addr] += amount * factor;
     }
 
     // 如果 [当前PLGR锁定量] <= [MPLGR 当前总释放量] => 当前锁定的PLGR数额，全部过桥
