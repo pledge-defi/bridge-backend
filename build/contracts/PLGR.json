@@ -7856,27 +7856,27 @@
     "absolutePath": "/home/u20/codespace/pledge-backend/bridge-backend/contracts/PLGR.sol",
     "exportedSymbols": {
       "Context": [
-        2885
+        2906
       ],
       "ERC20": [
-        2525
+        2546
       ],
       "IERC20": [
-        2603
+        2624
       ],
       "IERC20Metadata": [
-        2727
+        2748
       ],
       "PLGR": [
-        1355
+        1376
       ]
     },
-    "id": 1356,
+    "id": 1377,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1335,
+        "id": 1356,
         "literals": [
           "solidity",
           "^",
@@ -7889,10 +7889,10 @@
       {
         "absolutePath": "@openzeppelin/contracts/token/ERC20/ERC20.sol",
         "file": "@openzeppelin/contracts/token/ERC20/ERC20.sol",
-        "id": 1336,
+        "id": 1357,
         "nodeType": "ImportDirective",
-        "scope": 1356,
-        "sourceUnit": 2526,
+        "scope": 1377,
+        "sourceUnit": 2547,
         "src": "57:55:5",
         "symbolAliases": [],
         "unitAlias": ""
@@ -7902,39 +7902,39 @@
         "baseContracts": [
           {
             "baseName": {
-              "id": 1337,
+              "id": 1358,
               "name": "ERC20",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 2525,
+              "referencedDeclaration": 2546,
               "src": "131:5:5"
             },
-            "id": 1338,
+            "id": 1359,
             "nodeType": "InheritanceSpecifier",
             "src": "131:5:5"
           }
         ],
         "contractDependencies": [
-          2525,
-          2603,
-          2727,
-          2885
+          2546,
+          2624,
+          2748,
+          2906
         ],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 1355,
+        "id": 1376,
         "linearizedBaseContracts": [
-          1355,
-          2525,
-          2727,
-          2603,
-          2885
+          1376,
+          2546,
+          2748,
+          2624,
+          2906
         ],
         "name": "PLGR",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 1353,
+              "id": 1374,
               "nodeType": "Block",
               "src": "207:49:5",
               "statements": [
@@ -7943,7 +7943,7 @@
                     "arguments": [
                       {
                         "expression": {
-                          "id": 1348,
+                          "id": 1369,
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
@@ -7954,7 +7954,7 @@
                             "typeString": "msg"
                           }
                         },
-                        "id": 1349,
+                        "id": 1370,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -7968,11 +7968,11 @@
                         }
                       },
                       {
-                        "id": 1350,
+                        "id": 1371,
                         "name": "initialSupply",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1340,
+                        "referencedDeclaration": 1361,
                         "src": "235:13:5",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -7991,18 +7991,18 @@
                           "typeString": "uint256"
                         }
                       ],
-                      "id": 1347,
+                      "id": 1368,
                       "name": "_mint",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 2385,
+                      "referencedDeclaration": 2406,
                       "src": "217:5:5",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$_t_address_$_t_uint256_$returns$__$",
                         "typeString": "function (address,uint256)"
                       }
                     },
-                    "id": 1351,
+                    "id": 1372,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -8017,13 +8017,13 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 1352,
+                  "id": 1373,
                   "nodeType": "ExpressionStatement",
                   "src": "217:32:5"
                 }
               ]
             },
-            "id": 1354,
+            "id": 1375,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [
@@ -8031,7 +8031,7 @@
                 "arguments": [
                   {
                     "hexValue": "504c4752",
-                    "id": 1343,
+                    "id": 1364,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": true,
@@ -8047,7 +8047,7 @@
                   },
                   {
                     "hexValue": "504c4752",
-                    "id": 1344,
+                    "id": 1365,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": true,
@@ -8062,12 +8062,12 @@
                     "value": "PLGR"
                   }
                 ],
-                "id": 1345,
+                "id": 1366,
                 "modifierName": {
-                  "id": 1342,
+                  "id": 1363,
                   "name": "ERC20",
                   "nodeType": "IdentifierPath",
-                  "referencedDeclaration": 2525,
+                  "referencedDeclaration": 2546,
                   "src": "178:5:5"
                 },
                 "nodeType": "ModifierInvocation",
@@ -8077,16 +8077,16 @@
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1341,
+              "id": 1362,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1340,
+                  "id": 1361,
                   "mutability": "mutable",
                   "name": "initialSupply",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1354,
+                  "scope": 1375,
                   "src": "155:21:5",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -8095,7 +8095,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1339,
+                    "id": 1360,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "155:7:5",
@@ -8110,19 +8110,19 @@
               "src": "154:23:5"
             },
             "returnParameters": {
-              "id": 1346,
+              "id": 1367,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "207:0:5"
             },
-            "scope": 1355,
+            "scope": 1376,
             "src": "143:113:5",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 1356,
+        "scope": 1377,
         "src": "114:144:5"
       }
     ],
@@ -8132,27 +8132,27 @@
     "absolutePath": "/home/u20/codespace/pledge-backend/bridge-backend/contracts/PLGR.sol",
     "exportedSymbols": {
       "Context": [
-        2885
+        2906
       ],
       "ERC20": [
-        2525
+        2546
       ],
       "IERC20": [
-        2603
+        2624
       ],
       "IERC20Metadata": [
-        2727
+        2748
       ],
       "PLGR": [
-        1355
+        1376
       ]
     },
-    "id": 1356,
+    "id": 1377,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1335,
+        "id": 1356,
         "literals": [
           "solidity",
           "^",
@@ -8165,10 +8165,10 @@
       {
         "absolutePath": "@openzeppelin/contracts/token/ERC20/ERC20.sol",
         "file": "@openzeppelin/contracts/token/ERC20/ERC20.sol",
-        "id": 1336,
+        "id": 1357,
         "nodeType": "ImportDirective",
-        "scope": 1356,
-        "sourceUnit": 2526,
+        "scope": 1377,
+        "sourceUnit": 2547,
         "src": "57:55:5",
         "symbolAliases": [],
         "unitAlias": ""
@@ -8178,39 +8178,39 @@
         "baseContracts": [
           {
             "baseName": {
-              "id": 1337,
+              "id": 1358,
               "name": "ERC20",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 2525,
+              "referencedDeclaration": 2546,
               "src": "131:5:5"
             },
-            "id": 1338,
+            "id": 1359,
             "nodeType": "InheritanceSpecifier",
             "src": "131:5:5"
           }
         ],
         "contractDependencies": [
-          2525,
-          2603,
-          2727,
-          2885
+          2546,
+          2624,
+          2748,
+          2906
         ],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 1355,
+        "id": 1376,
         "linearizedBaseContracts": [
-          1355,
-          2525,
-          2727,
-          2603,
-          2885
+          1376,
+          2546,
+          2748,
+          2624,
+          2906
         ],
         "name": "PLGR",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 1353,
+              "id": 1374,
               "nodeType": "Block",
               "src": "207:49:5",
               "statements": [
@@ -8219,7 +8219,7 @@
                     "arguments": [
                       {
                         "expression": {
-                          "id": 1348,
+                          "id": 1369,
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
@@ -8230,7 +8230,7 @@
                             "typeString": "msg"
                           }
                         },
-                        "id": 1349,
+                        "id": 1370,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -8244,11 +8244,11 @@
                         }
                       },
                       {
-                        "id": 1350,
+                        "id": 1371,
                         "name": "initialSupply",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1340,
+                        "referencedDeclaration": 1361,
                         "src": "235:13:5",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -8267,18 +8267,18 @@
                           "typeString": "uint256"
                         }
                       ],
-                      "id": 1347,
+                      "id": 1368,
                       "name": "_mint",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 2385,
+                      "referencedDeclaration": 2406,
                       "src": "217:5:5",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$_t_address_$_t_uint256_$returns$__$",
                         "typeString": "function (address,uint256)"
                       }
                     },
-                    "id": 1351,
+                    "id": 1372,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -8293,13 +8293,13 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 1352,
+                  "id": 1373,
                   "nodeType": "ExpressionStatement",
                   "src": "217:32:5"
                 }
               ]
             },
-            "id": 1354,
+            "id": 1375,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [
@@ -8307,7 +8307,7 @@
                 "arguments": [
                   {
                     "hexValue": "504c4752",
-                    "id": 1343,
+                    "id": 1364,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": true,
@@ -8323,7 +8323,7 @@
                   },
                   {
                     "hexValue": "504c4752",
-                    "id": 1344,
+                    "id": 1365,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": true,
@@ -8338,12 +8338,12 @@
                     "value": "PLGR"
                   }
                 ],
-                "id": 1345,
+                "id": 1366,
                 "modifierName": {
-                  "id": 1342,
+                  "id": 1363,
                   "name": "ERC20",
                   "nodeType": "IdentifierPath",
-                  "referencedDeclaration": 2525,
+                  "referencedDeclaration": 2546,
                   "src": "178:5:5"
                 },
                 "nodeType": "ModifierInvocation",
@@ -8353,16 +8353,16 @@
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1341,
+              "id": 1362,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1340,
+                  "id": 1361,
                   "mutability": "mutable",
                   "name": "initialSupply",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1354,
+                  "scope": 1375,
                   "src": "155:21:5",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -8371,7 +8371,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1339,
+                    "id": 1360,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "155:7:5",
@@ -8386,19 +8386,19 @@
               "src": "154:23:5"
             },
             "returnParameters": {
-              "id": 1346,
+              "id": 1367,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "207:0:5"
             },
-            "scope": 1355,
+            "scope": 1376,
             "src": "143:113:5",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 1356,
+        "scope": 1377,
         "src": "114:144:5"
       }
     ],
@@ -8410,7 +8410,7 @@
   },
   "networks": {},
   "schemaVersion": "3.3.1",
-  "updatedAt": "2022-01-19T07:14:48.319Z",
+  "updatedAt": "2022-01-20T06:00:26.760Z",
   "devdoc": {
     "kind": "dev",
     "methods": {
