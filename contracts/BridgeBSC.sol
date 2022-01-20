@@ -108,7 +108,7 @@ contract PledgerBridgeBSC is ERC20Safe {
         plgr_lock_nonce ++;
 
         locked_plgr_tx[txid].owner = _owner;
-        locked_plgr_tx[txid].amount = amount;
+        locked_plgr_tx[txid].amount += amount;
 
         lockERC20(plgr_address, _owner, address(this), amount);
 
