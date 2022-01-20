@@ -157,11 +157,11 @@ contract PledgerBridgeBSC is ERC20Safe {
         plgr_amounts[addr] += amount * factor;
     }
 
-    // 如果 [当前PLGR锁定量] <= [MPLGR 当前总释放量] => 当前锁定的PLGR数额，全部过桥
-    // 如果 [当前锁定的PLGR量] > [MPLGR 当前总释放量] => 则，按照 ( [用户的PLGR锁定量] / [当前PLGR总锁定量]) * [MPLGR 当前总释放量] 进行过桥
+    // 如果 [当前PLGR锁定量] <= [MPLGR 当前总释放量] * factor  => 当前锁定的PLGR数额，全部过桥
+    // 如果 [当前锁定的PLGR量] > [MPLGR 当前总释放量] * factor => 则，按照 ( [用户的PLGR锁定量] / [当前PLGR总锁定量]) * [MPLGR 当前总释放量] 进行过桥
     function is_release_all_locked_plgr() public view returns (bool) {
         bool release_all_locked_plgr = true;
-        if (total_plgr_locked > total_mplgr_release) {
+        if (total_plgr_locked > total_mplgr_release * factor) {
             release_all_locked_plgr = false;
         }
 
@@ -182,7 +182,7 @@ contract PledgerBridgeBSC is ERC20Safe {
             uint256 user_plgr_locked = locked_plgr_tx[txid].amount;
 
             // 用户可以跨过去的PLGR量
-            uint256 user_plgr_crossed = release_all_locked_plgr ? user_plgr_locked : (user_plgr_locked / total_plgr_locked) * total_mplgr_release;
+            uint256 user_plgr_crossed = release_all_locked_plgr ? user_plgr_locked : (user_plgr_locked / total_plgr_locked) * total_mplgr_release * factor;
 
             // 跨过去后，可以得到的 MPLGR 量
             uint256 user_mplgr_crossed = user_plgr_crossed / factor;
@@ -195,7 +195,7 @@ contract PledgerBridgeBSC is ERC20Safe {
             locked_plgr_tx[txid].amount = user_plgr_locked - user_plgr_crossed;
         }
         // 同时更新当前PLGR的锁定总量
-        total_plgr_locked = release_all_locked_plgr ? 0 : (total_plgr_locked - total_mplgr_release);
+        total_plgr_locked = release_all_locked_plgr ? 0 : (total_plgr_locked - total_mplgr_release * factor);
 
         // ABI编码
         bytes memory rdata = abi.encode(count);
