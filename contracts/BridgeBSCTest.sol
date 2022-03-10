@@ -140,7 +140,7 @@ contract PledgerBridgeBSCTest is ERC20Safe {
     // User call this function on BSC to deposit PLGR.
 
     // 获取预存的PLGR总量
-    function get_deposit_plgr() public view returns (uint256)  {
+    function get_deposit_plgr_amount() public view returns (uint256)  {
 
         require(msg.sender == owner, "Only called by owner");
         uint256 count = locked_infos.length;
