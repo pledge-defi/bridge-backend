@@ -3,7 +3,7 @@
 ## How To Deploy
 ```shell 
 npm install
-truffle compile
+truffle compile   or    sudo truffle migrate --network rinkeby
 ```
 
 ## Contracts

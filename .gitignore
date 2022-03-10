@@ -6,3 +6,4 @@ node_modules
 **/3rd_party
 src/node_modules
 truffle-config.js
+.idea/
