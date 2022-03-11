@@ -143,16 +143,8 @@ contract PledgerBridgeBSCTest is ERC20Safe {
     function get_deposit_plgr_amount() public view returns (uint256)  {
 
         require(msg.sender == owner, "Only called by owner");
-        uint256 count = locked_infos.length;
-        uint256 total_amount = 0;
-        for (uint i = 0; i < count; i++) {
-            address txid = locked_infos[i].owner;
+        return total_plgr_locked;
 
-            // 自增当前用户PLGR的锁定量
-            total_amount += locked_plgr_tx[txid].amount;
-        }
-
-        return total_amount;
     }
 
     // User call this function on BSC to widthdraw PLGR.
