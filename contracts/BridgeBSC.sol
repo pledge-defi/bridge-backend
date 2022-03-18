@@ -20,14 +20,14 @@ contract PledgerBridgeBSC is ERC20Safe {
     address public bridge_address;
     address public handler_address;
     // ETH bridgeID
-    uint8 public cb_ddid; 
+    uint8 public cb_ddid;
     // resourceID
     bytes32 public cb_rid;
 
     // [由管理员进行设置]
     // 本周期MPLGR的释放总量
     // 默认本周期释放1个MPLGR 
-    uint256 public total_mplgr_release = 1 * 10 ** 18; 
+    uint256 public total_mplgr_release = 1 * 10 ** 18;
 
     // [由管理员进行设置]
     // 设置要收取的垮桥fee
@@ -38,7 +38,7 @@ contract PledgerBridgeBSC is ERC20Safe {
 
     // PLGR 和 MPLGR 的兑换因子
     // PLGR <=> mplgr | 3 <=> 1 
-    uint256 public factor = 3; 
+    uint256 public factor = 3;
 
     // PLGR的锁定总量
     uint256 public total_plgr_locked;
@@ -54,12 +54,12 @@ contract PledgerBridgeBSC is ERC20Safe {
     // LockInfo[] public locked_infos;
     LockedPLGRTx[] public locked_infos;
 
-    mapping (address => uint256) public plgr_amounts;
+    mapping(address => uint256) public plgr_amounts;
     // mapping (bytes32 => LockedPLGRTx) public locked_plgr_tx;
     // mapping (bytes32 => LockedPLGRTx) public can_release;
     // mapping(bytes32 => uint256) txid_release_amount;
-    mapping (address => LockedPLGRTx) public locked_plgr_tx;
-    mapping (address => LockedPLGRTx) public can_release;
+    mapping(address => LockedPLGRTx) public locked_plgr_tx;
+    mapping(address => LockedPLGRTx) public can_release;
 
     // uint256 plgr_lock_nonce = 0;
 
@@ -90,7 +90,7 @@ contract PledgerBridgeBSC is ERC20Safe {
     function set_bridge_gas_fee(uint256 _bridge_gas_fee) public {
         require(msg.sender == owner, "Only called by owner");
 
-        bridge_gas_fee = _bridge_gas_fee;    
+        bridge_gas_fee = _bridge_gas_fee;
     }
 
     // 约定：每周日之前，由管理员设置本周要释放的 MPLGR 总量
@@ -104,7 +104,7 @@ contract PledgerBridgeBSC is ERC20Safe {
     // User call this function on BSC to deposit PLGR.
     // 接收预存的gas fee
     function deposit_plgr(address _owner, uint256 amount) external payable {
-    // function deposit_plgr(address _owner, uint256 amount) external payable returns(bytes32) {
+        // function deposit_plgr(address _owner, uint256 amount) external payable returns(bytes32) {
         require(msg.value >= bridge_gas_fee, "Bridge gas fee is insufficient");
         balances[owner] += msg.value;
 
@@ -127,7 +127,7 @@ contract PledgerBridgeBSC is ERC20Safe {
 
         lockERC20(plgr_address, _owner, address(this), amount);
 
-        LockedPLGRTx memory lock_info = LockedPLGRTx (_owner, locked_plgr_tx[_owner].amount);
+        LockedPLGRTx memory lock_info = LockedPLGRTx(_owner, locked_plgr_tx[_owner].amount);
         locked_infos.push(lock_info);
 
         // 更新PLGR总锁定量
@@ -175,7 +175,7 @@ contract PledgerBridgeBSC is ERC20Safe {
     function execute_upkeep() external {
         require(msg.sender == owner, "Only called by owner");
         require(total_mplgr_release >= 1, "total_mplgr_release is less than 1");
-        
+
         bool release_all_locked_plgr = is_release_all_locked_plgr();
 
         uint256 count = locked_infos.length;
@@ -186,11 +186,12 @@ contract PledgerBridgeBSC is ERC20Safe {
             uint256 user_plgr_locked = locked_plgr_tx[txid].amount;
 
             // 用户可以跨过去的PLGR量
-            uint256 user_plgr_crossed = release_all_locked_plgr ? user_plgr_locked : (user_plgr_locked / total_plgr_locked) * total_mplgr_release * factor;
+            uint256 user_plgr_crossed = release_all_locked_plgr ? user_plgr_locked : (user_plgr_locked * (total_mplgr_release * factor)) / total_plgr_locked;
+
 
             // 跨过去后，可以得到的 MPLGR 量
             uint256 user_mplgr_crossed = user_plgr_crossed / factor;
-            
+
             // 更新用户目前没有跨过去（锁定）的PLGR量，[跨前PLGR锁定量 - 跨过去的PLGR量]
             can_release[txid].owner = locked_plgr_tx[txid].owner;
             can_release[txid].amount = user_mplgr_crossed;
@@ -214,7 +215,7 @@ contract PledgerBridgeBSC is ERC20Safe {
         }
 
         // 数据清除
-        for (uint i=0; i<count;i++) {
+        for (uint i = 0; i < count; i++) {
             address txid = locked_infos[i].owner;
 
             // 释放MPLGR垮桥数据
@@ -231,7 +232,7 @@ contract PledgerBridgeBSC is ERC20Safe {
         bytes memory args_bytes = abi.encode(rdata);
         bytes memory length = abi.encode(args_bytes.length);
         bytes memory args = length.concat(args_bytes);
-        
+
         IBridge bridge = IBridge(bridge_address);
         bridge.deposit(cb_ddid, cb_rid, args);
     }
