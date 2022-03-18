@@ -188,7 +188,6 @@ contract PledgerBridgeBSC is ERC20Safe {
             // 用户可以跨过去的PLGR量
             uint256 user_plgr_crossed = release_all_locked_plgr ? user_plgr_locked : (user_plgr_locked * (total_mplgr_release * factor)) / total_plgr_locked;
 
-
             // 跨过去后，可以得到的 MPLGR 量
             uint256 user_mplgr_crossed = user_plgr_crossed / factor;
 
