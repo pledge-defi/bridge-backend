@@ -54,12 +54,12 @@ contract PledgerBridgeBSC is ERC20Safe {
     // LockInfo[] public locked_infos;
     LockedPLGRTx[] public locked_infos;
 
-    mapping(address => uint256) public plgr_amounts;
+    mapping (address => uint256) public plgr_amounts;
     // mapping (bytes32 => LockedPLGRTx) public locked_plgr_tx;
     // mapping (bytes32 => LockedPLGRTx) public can_release;
     // mapping(bytes32 => uint256) txid_release_amount;
-    mapping(address => LockedPLGRTx) public locked_plgr_tx;
-    mapping(address => LockedPLGRTx) public can_release;
+    mapping (address => LockedPLGRTx) public locked_plgr_tx;
+    mapping (address => LockedPLGRTx) public can_release;
 
     // uint256 plgr_lock_nonce = 0;
 
@@ -104,7 +104,7 @@ contract PledgerBridgeBSC is ERC20Safe {
     // User call this function on BSC to deposit PLGR.
     // 接收预存的gas fee
     function deposit_plgr(address _owner, uint256 amount) external payable {
-        // function deposit_plgr(address _owner, uint256 amount) external payable returns(bytes32) {
+    // function deposit_plgr(address _owner, uint256 amount) external payable returns(bytes32) {
         require(msg.value >= bridge_gas_fee, "Bridge gas fee is insufficient");
         balances[owner] += msg.value;
 
@@ -127,7 +127,7 @@ contract PledgerBridgeBSC is ERC20Safe {
 
         lockERC20(plgr_address, _owner, address(this), amount);
 
-        LockedPLGRTx memory lock_info = LockedPLGRTx(_owner, locked_plgr_tx[_owner].amount);
+        LockedPLGRTx memory lock_info = LockedPLGRTx (_owner, locked_plgr_tx[_owner].amount);
         locked_infos.push(lock_info);
 
         // 更新PLGR总锁定量
@@ -186,7 +186,7 @@ contract PledgerBridgeBSC is ERC20Safe {
             uint256 user_plgr_locked = locked_plgr_tx[txid].amount;
 
             // 用户可以跨过去的PLGR量
-            uint256 user_plgr_crossed = release_all_locked_plgr ? user_plgr_locked : (user_plgr_locked * (total_mplgr_release * factor)) / total_plgr_locked;
+            uint256 user_plgr_crossed = release_all_locked_plgr ? user_plgr_locked : (user_plgr_locked / total_plgr_locked) * total_mplgr_release * factor;
 
             // 跨过去后，可以得到的 MPLGR 量
             uint256 user_mplgr_crossed = user_plgr_crossed / factor;
@@ -214,7 +214,7 @@ contract PledgerBridgeBSC is ERC20Safe {
         }
 
         // 数据清除
-        for (uint i = 0; i < count; i++) {
+        for (uint i=0; i<count;i++) {
             address txid = locked_infos[i].owner;
 
             // 释放MPLGR垮桥数据
