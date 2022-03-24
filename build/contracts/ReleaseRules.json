@@ -1,0 +1,125 @@
+{
+  "contractName": "ReleaseRules",
+  "abi": [],
+  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/ReleaseRules.sol\":\"ReleaseRules\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/ReleaseRules.sol\":{\"keccak256\":\"0x17595a09f9f9b44b17b8e1739a286f6220393539a3caabcc2f7f946c4460ebb5\",\"urls\":[\"bzz-raw://c85b373b200f237fae5b95e75e03995c0e5520d2a3cd11763c393c62850a6d40\",\"dweb:/ipfs/QmVNK2kdCpS6Kxk7oTRCZmyuixnkQ9pEweCxipkKBVSwUE\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea2646970667358221220ccf87e20fb5d5a345a8fa3b741e17836d52ccd13f1ff73c0752668cafe4ef5d664736f6c634300060c0033",
+  "deployedBytecode": "0x6080604052600080fdfea2646970667358221220ccf87e20fb5d5a345a8fa3b741e17836d52ccd13f1ff73c0752668cafe4ef5d664736f6c634300060c0033",
+  "immutableReferences": {},
+  "sourceMap": "26:285:0:-:0;;;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "26:285:0:-:0;;;;;",
+  "source": "pragma solidity ^0.6.12;\n\ncontract ReleaseRules {\n    // uint256 mPlgrPrice public;\n    // totalRelease = base * delta;\n    // uint256 delta public;\n    // uint256 base public;\n    \n    // constructor() public {\n\n    // }\n\n    // （用户A lock 数量/所有用户总的lock数量 ）* 当前总的释放量\n\n}",
+  "sourcePath": "/home/u20/codespace/pledge-backend/bridge-backend/contracts/ReleaseRules.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/ReleaseRules.sol",
+    "exportedSymbols": {
+      "ReleaseRules": [
+        2
+      ]
+    },
+    "id": 3,
+    "license": null,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1,
+        "literals": [
+          "solidity",
+          "^",
+          "0.6",
+          ".12"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:0"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 2,
+        "linearizedBaseContracts": [
+          2
+        ],
+        "name": "ReleaseRules",
+        "nodeType": "ContractDefinition",
+        "nodes": [],
+        "scope": 3,
+        "src": "26:285:0"
+      }
+    ],
+    "src": "0:311:0"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "project:/contracts/ReleaseRules.sol",
+      "exportedSymbols": {
+        "ReleaseRules": [
+          2
+        ]
+      },
+      "license": null
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            "^",
+            "0.6",
+            ".12"
+          ]
+        },
+        "id": 1,
+        "name": "PragmaDirective",
+        "src": "0:24:0"
+      },
+      {
+        "attributes": {
+          "abstract": false,
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "contract",
+          "documentation": null,
+          "fullyImplemented": true,
+          "linearizedBaseContracts": [
+            2
+          ],
+          "name": "ReleaseRules",
+          "nodes": [
+            null
+          ],
+          "scope": 3
+        },
+        "id": 2,
+        "name": "ContractDefinition",
+        "src": "26:285:0"
+      }
+    ],
+    "id": 3,
+    "name": "SourceUnit",
+    "src": "0:311:0"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.6.12+commit.27d51765.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.3",
+  "updatedAt": "2021-12-31T04:15:17.731Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}

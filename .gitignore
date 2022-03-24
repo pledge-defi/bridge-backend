@@ -5,3 +5,5 @@ node_modules
 **/artifacts
 **/3rd_party
 src/node_modules
+truffle-config.js
+.idea/

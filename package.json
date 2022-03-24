@@ -8,8 +8,8 @@
     "compile": "truffle compile --compile-all"
   },
   "dependencies": {
-    "@openzeppelin/contracts": "3.2.0",
-    "solidity-bytes-utils": "^0.1.2"
+    "@openzeppelin/contracts": "4.4.1",
+    "solidity-bytes-utils": "^0.8.0"
   },
   "devDependencies": {
     "@truffle/artifactor": "^4.0.84",
